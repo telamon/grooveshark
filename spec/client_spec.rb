@@ -80,4 +80,28 @@ describe 'Client' do
     url.nil?.should == false
     url.should match /^http:/i
   end
+  
+  context 'authentication' do  
+    it 'returns a user on valid credentials' do
+      stub_request(:post, api_secure_url('authenticateUser')).
+        to_return(
+          :status => 200,
+          :body => fixture('authenticate_user.json')
+        )
+    
+      user = Grooveshark::Client.new.login('username', 'password')
+      user.should be_a Grooveshark::User
+    end
+    
+    it 'raises InvalidAuthentication on invalid credentials' do
+      stub_request(:post, api_secure_url('authenticateUser')).
+        to_return(
+          :status => 200,
+          :body => fixture('authenticate_user_failed.json')
+        )
+    
+      proc { Grooveshark::Client.new.login('foo', 'bar') }.
+        should raise_error Grooveshark::InvalidAuthentication
+    end
+  end
 end

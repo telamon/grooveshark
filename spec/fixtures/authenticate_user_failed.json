@@ -1,0 +1,27 @@
+{
+  "header": {
+    "session": "d75c3d9511e4030c8ac346d36a0c15f9",
+    "serviceVersion": "20100903",
+    "prefetchEnabled": true
+  },
+  "result": {
+    "userID": 0,
+    "username": "",
+    "fName": "",
+    "lName": "",
+    "isPremium": 0,
+    "autoAutoplay": false,
+    "authRealm": 0,
+    "favoritesLimit": 0,
+    "librarySizeLimit": 0,
+    "uploadsEnabled": 1,
+    "themeID": "",
+    "authToken": null,
+    "badAuthToken": false,
+    "privacy": 1,
+    "sex": null,
+    "tsDOB": null,
+    "flags": 0,
+    "email": ""
+  }
+}

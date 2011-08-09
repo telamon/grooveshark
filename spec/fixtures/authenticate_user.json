@@ -1,0 +1,27 @@
+{
+  "header": {
+    "session": "654b5110bd5d604fc67f743cc2197124",
+    "serviceVersion": "20100903",
+    "prefetchEnabled": true
+  },
+  "result": {
+    "userID": 2249550,
+    "username": "Dan Sosedoff",
+    "fName": "Dan Sosedoff",
+    "lName": "",
+    "isPremium": "0",
+    "autoAutoplay": false,
+    "authRealm": 1,
+    "favoritesLimit": 500,
+    "librarySizeLimit": 5000,
+    "uploadsEnabled": 1,
+    "themeID": "",
+    "authToken": "aabbccddee",
+    "badAuthToken": false,
+    "privacy": 1,
+    "sex": "M",
+    "tsDOB": "1950-01-01",
+    "flags": 0,
+    "email": "foo@bar.com"
+  }
+}
