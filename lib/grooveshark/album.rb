@@ -1,6 +1,6 @@
 module Grooveshark
   class Album
-    attr_reader :album_id, :album_name_id, :name
+    attr_reader :id, :album_id, :album_name_id, :name
     attr_reader :artist_id, :year, :cover_art_filename
     attr_reader :artist_name, :is_verified
     attr_reader :songs
@@ -49,11 +49,10 @@ module Grooveshark
     
     # Returns (and if possible stores) the album songs
     #
-    # @return [Array]
+    # @return [Array][Grooveshark::Songs]
     #
     def songs
-      @songs ||= @client.get_songs_by_album_id(@id)
+      @songs ||= @client.get_album_songs(self)
     end
-    
   end
 end

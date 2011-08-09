@@ -55,6 +55,8 @@ module Grooveshark
     
     # Get recently active users
     #
+    # @return [Array][Grooveshark::User]
+    #
     def recently_active_users
       request('getRecentlyActiveUsers', {})['users'].map { |u| User.new(self, u) }
     end
@@ -62,6 +64,8 @@ module Grooveshark
     # Returns a collection of popular songs for the time period
     #
     # type - daily, monthly
+    #
+    # @return [Array][Grooveshark::Song]
     #
     def popular_songs(type='daily')
       unless ['daily', 'monthly'].include?(type)
@@ -74,6 +78,8 @@ module Grooveshark
     #
     # query - Search query (ex.: AC/DC - Back In Black)
     #
+    # @return [Array][Grooveshark::Song]
+    #
     def search_songs(query)
       search(:songs, query).map { |record| Song.new(self, record) }
     end
@@ -84,7 +90,7 @@ module Grooveshark
     #
     # query - Search query (ex.: AC/DC)
     #
-    # @return [Array]
+    # @return [Array][Grooveshark::Artist]
     #
     def search_artists(query)
       search(:artists, query).map { |record| Artist.new(self, record) }
@@ -124,32 +130,35 @@ module Grooveshark
     
     # Returns an album object
     #
-    # id - Album ID (from song)
+    # album - Grooveshark::Album object or Album ID
     #
     # @return [Grooveshark::Album]
     #
-    def get_album_by_id(id)
+    def get_album(album)
+      id = album.kind_of?(Grooveshark::Album) ? album.id : album.to_s
       Album.new(self, request('getAlbumByID', {:albumID => id}))
     end
     
     # Returns an array of Song objects
     #
-    # id - Album ID
+    # album - Grooveshark::Album or Album ID
     #
     # @return [Array]
     #
-    def get_songs_by_album_id(id)
+    def get_album_songs(album)
+      id = album.kind_of?(Grooveshark::Album) ? album.id : album.to_s
       opts = {:albumID => id, :isVerified => true, :offset => 0}
       request('albumGetSongs', opts)['songs'].map { |s| Song.new(self, s) }
     end
     
     # Returns an artist object
     #
-    # id - Artist ID
+    # artist - Grooveshark::Artist or Artist ID
     #
     # @return [Grooveshark::Artist]
     #
-    def get_artist_by_id(id)
+    def get_artist(artist)
+      id = artist.kind_of?(Grooveshark::Artist) ? artist.id : artist.to_s
       Artist.new(self, request('getArtistByID', {:artistID => id}))
     end
     

@@ -65,7 +65,7 @@ module Grooveshark
     # @return [Grooveshark::Artist]
     #
     def artist
-      @artist ||= @client.get_artist_by_id(@artist_id)
+      @artist ||= @client.get_artist(@artist_id)
     end
     
     # Returns an album object for the song
@@ -73,7 +73,7 @@ module Grooveshark
     # @return [Grooveshark::Album]
     #
     def album
-      @album ||= @client.get_album_by_id(@album_id)
+      @album ||= @client.get_album(self)
     end
     
     # Returns a direct streaming URL for the song
