@@ -108,7 +108,7 @@ describe 'Client' do
       stub_request(:post, api_secure_url('authenticateUser')).
         to_return(
           :status => 200,
-          :body => fixture('authenticate_user_failed.json')
+          :body => fixture('failures/authenticate_user.json')
         )
     
       proc { Grooveshark::Client.new.login('foo', 'bar') }.
