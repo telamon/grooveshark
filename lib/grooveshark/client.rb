@@ -120,29 +120,33 @@ module Grooveshark
     
     # Returns an album object
     #
-    # id - album id from song
+    # id - Album ID (from song)
     #
-    # @return Grooveshark::Album
+    # @return [Grooveshark::Album]
     #
     def get_album_by_id(id)
-      Album.new(self, request('getAlbumByID', { :albumID => id }))
+      Album.new(self, request('getAlbumByID', {:albumID => id}))
     end
     
     # Returns an array of Song objects
     #
-    # id - the album id
+    # id - Album ID
     #
     # @return [Array]
     #
     def get_songs_by_album_id(id)
-      songs = []
-      request('albumGetSongs', {:albumID => id, :isVerified => true, :offset => 0})['songs'].each { |s| songs << Song.new(self, s)}
-      
-      return songs
+      opts = {:albumID => id, :isVerified => true, :offset => 0}
+      request('albumGetSongs', opts)['songs'].map { |s| Song.new(self, s) }
     end
     
+    # Returns an artist object
+    #
+    # id - Artist ID
+    #
+    # @return [Grooveshark::Artist]
+    #
     def get_artist_by_id(id)
-      Artist.new(self, request('getArtistByID', { :artistID => id }))
+      Artist.new(self, request('getArtistByID', {:artistID => id}))
     end
     
     protected
@@ -161,6 +165,5 @@ module Grooveshark
       end    
       request('getSearchResults', {:type => type, :query => query})[type.downcase]
     end
-    
   end
 end

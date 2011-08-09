@@ -25,6 +25,18 @@ module Grooveshark
         @artwork    = data['cover_art_filename']
         @playcount  = data['song_plays']
         @year       = data['year']
+        
+        # initialize album and artist objects from given hash
+        # the format of the incoming fields is the same as it
+        # is in the single requests, so its fine.
+        
+        if data.include?(['album_id', 'album_name'])
+          @album = Grooveshark::Album.new(self, data)
+        end
+        
+        if data.include?(['artist_id', 'artist_name'])
+          @artist = Grooveshark::Artist.new(self, data)
+        end
       end
     end
     
