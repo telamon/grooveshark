@@ -1,3 +1,5 @@
 Methods:
 
+- getArtistAutocomplete
 - getStreamKeysFromSongIDs
+- getPageNameByIDType
