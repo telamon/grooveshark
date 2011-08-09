@@ -20,6 +20,20 @@ module Grooveshark
     'getStreamKeyFromSongIDEx' => 'bewareOfBearsharktopus'
   }
   
+  @@debug = false
+  
+  # Returns true if request logger is enabled
+  #
+  def self.log_requests
+    @@debug
+  end
+  
+  # Enable request logger (STDOUT)
+  #
+  def self.log_requests= (value)
+    @@debug = value ? true : false
+  end
+  
   module Connection
     protected
     
@@ -34,7 +48,7 @@ module Grooveshark
       base_url << API_BASE
       
       Faraday.new(base_url) do |c|
-        # c.use(Faraday::Response::Logger)   # DEBUG OUTPUT
+        c.use(Faraday::Response::Logger)     if Grooveshark.log_requests
         c.use(Faraday::Request::UrlEncoded)
         c.use(Faraday::Response::ParseJson)
         c.adapter(Faraday.default_adapter)
