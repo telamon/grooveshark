@@ -1,7 +1,6 @@
 require "spec_helper"
 
 describe "Song" do
-  
   before do
     stub_request(:get, "http://grooveshark.com/").
       to_return(
@@ -35,38 +34,39 @@ describe "Song" do
   end
   
   context "album" do
-    it "should return album object if called album getter" do
-      @song.album.should be_a_kind_of Grooveshark::Album
+    it "returns album object if called album getter" do
+      @song.album.should be_a Grooveshark::Album
     end
     
-    it "should have at least one song" do
-      @song.album.songs.count.should > 0
+    it "has at least one song" do
+      songs = @song.album.songs
+      songs.should be_a Array
+      songs.empty?.should == false
     end
     
-    it "should have the song name in it" do
+    it "has the song name in it" do
       songs = @song.album.songs.map { |s| s.id }
       songs.include?(@song.id.to_s).should be_true
     end
     
-    it "should not have any nil instance variables" do
+    it "does not have any nil instance variables" do
       @song.album.to_hash.each { |k,v| v.should_not be_nil, "#{k} is nil!" }
     end
   end
   
   context "artist" do
-    it "should return artist object if called artist getter" do
+    it "returns an artist object if called artist getter" do
       @song.artist.should be_a_kind_of Grooveshark::Artist
     end
     
-    it "should have a name and id" do
+    it "has a name and id" do
       artist = @song.artist
       artist.id.to_s.should == '1254743'
       artist.name.should == 'Bruno Mars'
     end
     
-    it "should not have any nil instance variables" do
+    it "does not have any nil instance variables" do
       @song.artist.to_hash.each { |k,v| v.should_not be_nil, "#{k} is nil!" }
     end
   end
-  
 end
