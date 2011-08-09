@@ -28,7 +28,7 @@ module Grooveshark
       end
     end
     
-    # Returns a string representation of song
+    # Returns a string representation of album
     #
     def to_s
       [@album_id, @name].join(' - ')

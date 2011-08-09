@@ -3,6 +3,7 @@ module Grooveshark
     attr_reader :id, :artist_id, :album_id
     attr_reader :name, :artist, :album, :track, :year
     attr_reader :duration, :artwork, :playcount
+    
     # Initialize a new Grooveshark::Song object
     #
     # client - Grooveshark::Client
@@ -47,15 +48,25 @@ module Grooveshark
       }
     end
     
+    # Returns an artist object for the song
+    #
+    # @return [Grooveshark::Artist]
+    #
     def artist
       @artist ||= @client.get_artist_by_id(@artist_id)
     end
     
+    # Returns an album object for the song
+    #
+    # @return [Grooveshark::Album]
+    #
     def album
       @album ||= @client.get_album_by_id(@album_id)
     end
     
-    # Returns a direct streaming URL
+    # Returns a direct streaming URL for the song
+    #
+    # @return [String]
     #
     def stream_url
       @stream_url ||= @client.get_song_url(self)
