@@ -2,6 +2,7 @@ $:.unshift File.expand_path("../..", __FILE__)
 
 require 'webmock'
 require 'webmock/rspec'
+require 'spec_stubs'
 require 'grooveshark'
 
 def fixture_path(file=nil)

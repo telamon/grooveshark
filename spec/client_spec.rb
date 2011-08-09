@@ -2,19 +2,7 @@ require 'spec_helper'
 
 describe 'Client' do
   before do
-    stub_request(:get, "http://grooveshark.com/").
-      to_return(
-        :status => 200, :body => "",
-        :headers => {
-          'Set-Cookie' => 'PHPSESSID=8d5e0200564abe281e7e98435e40ee16;'
-        }
-      )
-      
-    stub_request(:post, api_secure_url('getCommunicationToken')).
-      to_return(
-        :status => 200,
-        :body => fixture('get_communication_token.json')
-      )
+    stub_init_session
   end
   
   it 'has a valid session token and communication token' do
@@ -92,5 +80,4 @@ describe 'Client' do
     url.nil?.should == false
     url.should match /^http:/i
   end
-  
 end

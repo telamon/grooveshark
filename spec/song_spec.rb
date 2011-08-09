@@ -2,33 +2,26 @@ require "spec_helper"
 
 describe "Song" do
   before do
-    stub_request(:get, "http://grooveshark.com/").
-      to_return(
-        :status => 200, :body => "",
-        :headers => {
-          'Set-Cookie' => 'PHPSESSID=8d5e0200564abe281e7e98435e40ee16;'
-        }
-      )
-    stub_request(:post, api_secure_url('getCommunicationToken')).
-      to_return(
-        :status => 200,
-        :body => fixture('get_communication_token.json')
-      )
+    stub_init_session
+  
     stub_request(:post, api_url('getAlbumByID')).
       to_return(
         :status => 200,
         :body => fixture('get_album_by_id.json')
       )
+      
     stub_request(:post, api_url('albumGetSongs')).
       to_return(
         :status => 200,
         :body => fixture('album_get_songs.json')
       )
-      stub_request(:post, api_url("getArtistByID")).
+      
+    stub_request(:post, api_url("getArtistByID")).
       to_return(
         :status => 200,
         :body => fixture('get_artist_by_id.json')
-      )      
+      )
+      
     @client = Grooveshark::Client.new
     @song = Grooveshark::Song.new(@client, {'album_id' => '4526300', 'song_id' => '26832592'})
   end
