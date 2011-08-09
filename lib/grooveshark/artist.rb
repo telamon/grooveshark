@@ -1,6 +1,6 @@
 module Grooveshark
   class Artist
-    attr_reader :id, :name
+    attr_reader :id, :name, :songs
     
     # Initialize a new Grooveshark::Artist object
     #
@@ -26,5 +26,10 @@ module Grooveshark
       }
     end
     
+    # Returns a collection of artist's songs
+    #
+    def songs
+      @songs ||= @client.get_songs_by_artist(self)
+    end
   end
 end

@@ -153,6 +153,18 @@ module Grooveshark
       Artist.new(self, request('getArtistByID', {:artistID => id}))
     end
     
+    # Returns an array of Song objects for artist
+    #
+    # artist - Grooveshark::Artist object or Artist ID
+    #
+    # @return [Array]
+    #
+    def get_songs_by_artist(artist)
+      id = artist.kind_of?(Grooveshark::Artist) ? artist.id : artist.to_s
+      opts = {:artistID => id, :isVerifiedOrPopular => true}
+      request('artistGetSongsEx', opts).map { |s| Song.new(self, s) }
+    end
+    
     protected
     
     # Returns a collection of search results
