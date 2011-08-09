@@ -1,13 +1,17 @@
 module Grooveshark
-  class InvalidAuthentication < Exception ; end
-  class ReadOnlyAccess < Exception ; end
-  class GeneralError < Exception ; end
+  class Error                 < StandardError ; end
+  class InvalidAuthentication < Error ; end
+  class ReadOnlyAccess        < Error ; end
+  class GeneralError          < Error ; end
+  class NotFound              < Error ; end
   
-  class ApiError < Exception
+  # Generic grooveshark API error
+  #
+  class ApiError < Error
     attr_reader :code
   
     def initialize(fault)
-      @code = fault['code']
+      @code    = fault['code']
       @message = fault['message']
     end
   

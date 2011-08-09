@@ -115,7 +115,11 @@ module Grooveshark
     # 
     def get_song_url(song)
       auth = get_stream_auth(song)
-      "http://#{auth['ip']}/stream.php?streamKey=#{auth['stream_key']}"
+      if auth.empty?
+        raise Grooveshark::NotFound, "Invalid song ID."
+      else
+        "http://#{auth['ip']}/stream.php?streamKey=#{auth['stream_key']}"
+      end
     end
     
     # Returns an album object

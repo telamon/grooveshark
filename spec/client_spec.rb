@@ -81,6 +81,17 @@ describe 'Client' do
     url.should match /^http:/i
   end
   
+  it 'raises Grooveshark::NotFound for stream request with invalid song id' do
+    stub_request(:post, api_url('getStreamKeyFromSongIDEx')).
+      to_return(
+        :status => 200,
+        :body => fixture('failures/get_stream_key_from_song_id_ex.json')
+      )
+  
+    proc { Grooveshark::Client.new.get_song_url(12345) }.
+      should raise_error Grooveshark::NotFound
+  end
+  
   context 'authentication' do  
     it 'returns a user on valid credentials' do
       stub_request(:post, api_secure_url('authenticateUser')).
@@ -93,7 +104,7 @@ describe 'Client' do
       user.should be_a Grooveshark::User
     end
     
-    it 'raises InvalidAuthentication on invalid credentials' do
+    it 'raises Grooveshark::InvalidAuthentication on invalid credentials' do
       stub_request(:post, api_secure_url('authenticateUser')).
         to_return(
           :status => 200,
