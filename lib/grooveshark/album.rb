@@ -19,12 +19,12 @@ module Grooveshark
       unless data.nil?
         @id                   = data['album_id'].to_i
         @name_id              = data['album_name_id'].to_i
-        @name                 = data['name']
+        @name                 = data['album_name'] || data['name']
         @artist_id            = data['artist_id'].to_i
         @year                 = data['year']
         @cover_art_filename   = data['cover_art_filename']
         @artist_name          = data['artist_name']
-        @is_verified          = data['is_verified']
+        @is_verified          = data['album_verified'] || data['is_verified']
       end
     end
     

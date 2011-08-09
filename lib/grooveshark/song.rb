@@ -30,12 +30,12 @@ module Grooveshark
         # the format of the incoming fields is the same as it
         # is in the single requests, so its fine.
         
-        if data.keys.include?(['album_id', 'album_name'])
-          @album = Grooveshark::Album.new(self, data)
+        if data.key?('album_id') && data.key?('album_name')
+          @album = Grooveshark::Album.new(@client, data)
         end
         
-        if data.keys.include?(['artist_id', 'artist_name'])
-          @artist = Grooveshark::Artist.new(self, data)
+        if data.key?('artist_id') && data.key?('artist_name')
+          @artist = Grooveshark::Artist.new(@client, data)
         end
       end
     end
