@@ -37,7 +37,7 @@ module Grooveshark
     #
     def artwork_url(format=:small)
       name = Grooveshark::ASSET_FORMATS[format] + @id.to_s
-      "#{Grooveshark::ASSETS_BASE}/amazonart/#{@artwork_filename}.jpg"
+      "#{Grooveshark::ASSETS_BASE}/amazonart/#{@artwork_filename}"
     end
     
     # Returns a string representation of album
