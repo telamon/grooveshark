@@ -162,6 +162,16 @@ module Grooveshark
       Artist.new(self, request('getArtistByID', {:artistID => id}))
     end
     
+    # Returns a collection of artists suggested for query
+    #
+    # query - Search query
+    #
+    # @return [Array][Grooveshark::Artist]
+    def get_artist_autocomplete(query)
+      resp = request('getArtistAutocomplete', :query => query)
+      resp['artists'].map { |a| Grooveshark::Artist.new(self, a) }
+    end
+    
     # Returns an array of Song objects for artist
     #
     # artist - Grooveshark::Artist object or Artist ID

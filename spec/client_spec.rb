@@ -92,6 +92,21 @@ describe 'Client' do
       should raise_error Grooveshark::NotFound
   end
   
+  it 'returns a collection of suggested artists' do
+    stub_request(:post, api_url('getArtistAutocomplete')).
+      to_return(
+        :status => 200,
+        :body => fixture('get_artist_autocomplete.json')
+      )
+      
+    client = Grooveshark::Client.new
+    artists = client.get_artist_autocomplete('Nirva')
+    artists.should be_a Array
+    artists.first.should be_a Grooveshark::Artist
+    artists.first.id.should == 57
+    artists.first.name.should == 'nirvana'
+  end
+  
   context 'authentication' do  
     it 'returns a user on valid credentials' do
       stub_request(:post, api_secure_url('authenticateUser')).

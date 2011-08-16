@@ -1,0 +1,25 @@
+{
+    "header": {
+        "session": "075cafa13bc820824cdf09d61f0bd1a6",
+        "serviceVersion": "20100903",
+        "prefetchEnabled": true
+    },
+    "result": {
+        "Artists": [{
+            "Name": "nirvana",
+            "ArtistID": 57
+        }, {
+            "Name": "nirvanna",
+            "ArtistID": 60884
+        }, {
+            "Name": "nirvana - kud",
+            "ArtistID": 1824968
+        }, {
+            "Name": "nirvana-in utero",
+            "ArtistID": 500511
+        }, {
+            "Name": "nirvana - smells like teen spi",
+            "ArtistID": 1969399
+        }]
+    }
+}
