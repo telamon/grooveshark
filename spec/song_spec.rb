@@ -26,6 +26,10 @@ describe "Song" do
     @song = Grooveshark::Song.new(@client, {'album_id' => '4526300', 'song_id' => '26832592'})
   end
   
+  it 'has a proper artwork url' do
+    @song.artwork_url.should == "http://beta.grooveshark.com/static/amazonart/s4526300.jpg"
+  end
+  
   context "album" do
     it "returns album object if called album getter" do
       @song.album.should be_a Grooveshark::Album
@@ -44,6 +48,10 @@ describe "Song" do
     
     it "does not have any nil instance variables" do
       @song.album.to_hash.each { |k,v| v.should_not be_nil, "#{k} is nil!" }
+    end
+    
+    it 'has a proper artwork url' do
+      @song.album.artwork_url.should == "http://beta.grooveshark.com/static/amazonart/s4526300.jpg"
     end
   end
   
