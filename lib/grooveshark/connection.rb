@@ -5,7 +5,7 @@ module Grooveshark
   API_BASE        = 'cowbell.grooveshark.com'
   UUID            = 'A3B724BA-14F5-4932-98B8-8D375F85F266'
   CLIENT          = 'htmlshark'
-  CLIENT_REV      = '20110606.04'
+  CLIENT_REV      = '20110722'
   COUNTRY         = {"CC2" => "0", "IPR" => "353", "CC4" => "1073741824", "CC3" => "0", "CC1" => "0", "ID" => "223"}
   SALT            = 'backToTheScienceLab'
   TOKEN_TTL       = 120 # 2 minutes
