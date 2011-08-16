@@ -195,7 +195,7 @@ module Grooveshark
     #
     def search(type, query)
       type = type.to_s.capitalize
-      unless ['Songs', 'Artists', 'Playlists'].include?(type)
+      unless ['Songs', 'Artists', 'Playlists', 'Users'].include?(type)
         raise ArgumentError, "Invalid search type: #{type}."
       end    
       request('getSearchResults', {:type => type, :query => query})[type.downcase]
