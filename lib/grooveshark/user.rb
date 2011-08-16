@@ -1,12 +1,5 @@
 module Grooveshark
   class User
-    AVATAR_FORMATS = {
-      :small    => 's',
-      :medium   => 'm',
-      :large    => 'l',
-      :original => ''
-    }.freeze
-    
     attr_reader :id, :username, :email, :premium, :data
     attr_reader :city, :country, :sex
     attr_reader :playlists, :favorites
@@ -41,8 +34,8 @@ module Grooveshark
     # @return [String]
     #
     def avatar(format=:small)
-      name = AVATAR_FORMATS[format] + @id.to_s
-      "http://beta.grooveshark.com/static/userimages/#{name}.jpg"
+      name = Grooveshark::ASSET_FORMATS[format] + @id.to_s
+      "#{Grooveshark::ASSETS_BASE}/userimages/#{name}.jpg"
     end
     
     # Get user activity for the date (COMES AS RAW RESPONSE)

@@ -4,6 +4,7 @@ module Grooveshark
     attr_reader :artist_id, :year, :cover_art_filename
     attr_reader :artist_name, :is_verified
     attr_reader :songs
+    attr_reader :artwork_filename
     
     # Initialize a new Grooveshark::Album object
     #
@@ -22,10 +23,21 @@ module Grooveshark
         @name                 = data['album_name'] || data['name']
         @artist_id            = data['artist_id'].to_i
         @year                 = data['year']
-        @cover_art_filename   = data['cover_art_filename']
         @artist_name          = data['artist_name']
         @is_verified          = data['album_verified'] || data['is_verified']
+        @artwork_filename     = data['cover_art_filename']
       end
+    end
+    
+    # Returns a full URL to album artwork
+    #
+    # format - Artwork size (:small, :meduim, :large, :original)
+    #
+    # @return [String]
+    #
+    def artwork_url(format=:small)
+      name = Grooveshark::ASSET_FORMATS[format] + @id.to_s
+      "#{Grooveshark::ASSETS_BASE}/amazonart/#{@artwork_filename}.jpg"
     end
     
     # Returns a string representation of album
@@ -42,7 +54,7 @@ module Grooveshark
         'albumNameID'      => @name_id,
         'artistID'         => @artist_id,
         'year'             => @year,
-        'coverArtFilename' => @cover_art_filename,
+        'coverArtFilename' => @artwork_filename,
         'artistName'       => @artist_name
       }
     end

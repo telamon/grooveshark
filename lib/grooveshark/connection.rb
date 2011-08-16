@@ -3,6 +3,7 @@ require 'faraday_middleware'
 module Grooveshark
   WEBSITE_URL     = 'http://grooveshark.com'
   API_BASE        = 'cowbell.grooveshark.com'
+  ASSETS_BASE     = 'http://beta.grooveshark.com/static'
   UUID            = 'A3B724BA-14F5-4932-98B8-8D375F85F266'
   CLIENT          = 'htmlshark'
   CLIENT_REV      = '20110722'
@@ -18,6 +19,14 @@ module Grooveshark
   # Salt overrides for different methods
   METHOD_SALTS = { 
     'getStreamKeyFromSongIDEx' => 'bewareOfBearsharktopus'
+  }
+  
+  # Album covers and user pictures size prefixes
+  ASSET_FORMATS = {
+    :small    => 's',
+    :medium   => 'm',
+    :large    => 'l',
+    :original => ''
   }
   
   @@debug = false

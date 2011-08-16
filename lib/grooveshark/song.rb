@@ -2,7 +2,7 @@ module Grooveshark
   class Song
     attr_reader :id, :artist_id, :album_id
     attr_reader :name, :artist, :album, :track, :year
-    attr_reader :duration, :artwork, :playcount
+    attr_reader :duration, :artwork_filename, :playcount
     
     # Initialize a new Grooveshark::Song object
     #
@@ -16,15 +16,15 @@ module Grooveshark
       
       @client = client
       unless data.nil?
-        @id         = data['song_id']
-        @name       = data['song_name'] || data['name']
-        @artist_id  = data['artist_id']
-        @album_id   = data['album_id']
-        @track      = data['track_num']
-        @duration   = data['estimate_duration']
-        @artwork    = data['cover_art_filename']
-        @playcount  = data['song_plays']
-        @year       = data['year']
+        @id               = data['song_id']
+        @name             = data['song_name'] || data['name']
+        @artist_id        = data['artist_id']
+        @album_id         = data['album_id']
+        @track            = data['track_num']
+        @duration         = data['estimate_duration']
+        @playcount        = data['song_plays']
+        @year             = data['year']
+        @artwork_filename = data['cover_art_filename']
         
         # initialize album and artist objects from given hash
         # the format of the incoming fields is the same as it
@@ -39,7 +39,7 @@ module Grooveshark
         end
       end
     end
-    
+      
     # Returns a string representation of song
     #
     def to_s
@@ -82,6 +82,17 @@ module Grooveshark
     #
     def stream_url
       @stream_url ||= @client.get_song_url(self)
+    end
+    
+    # Returns a full URL to album artwork
+    #
+    # format - Artwork size (:small, :meduim, :large, :original)
+    #
+    # @return [String]
+    #
+    def artwork_url(format=:small)
+      name = Grooveshark::ASSET_FORMATS[format] + @id.to_s
+      "#{Grooveshark::ASSETS_BASE}/amazonart/#{@artwork_filename}.jpg"
     end
   end
 end
