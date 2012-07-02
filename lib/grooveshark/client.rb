@@ -20,7 +20,7 @@ module Grooveshark
     
     # Obtain new session from Grooveshark
     def get_session
-      resp = RestClient.get('http://listen.grooveshark.com')
+      resp = RestClient.get('http://grooveshark.com')
       resp.headers[:set_cookie].to_s.scan(/PHPSESSID=([a-z\d]{32});/i).flatten.first
     end
     
