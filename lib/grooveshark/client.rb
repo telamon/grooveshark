@@ -13,7 +13,9 @@ module Grooveshark
   
     def initialize(session=nil)
       @session = session || get_session
+      puts "SESSION:::::: #{@session}"
       get_comm_token
+      puts "COMM_TOKEN::::: #{@comm_token}"
     end
     
     protected

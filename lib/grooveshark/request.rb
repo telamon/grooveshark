@@ -1,10 +1,11 @@
 module Grooveshark
   module Request
-    API_BASE        = 'cowbell.grooveshark.com'
-    UUID            = 'A3B724BA-14F5-4932-98B8-8D375F85F266'
+    API_BASE        = 'grooveshark.com'
+    UUID            = 'C01D17E7-1B0C-4737-A48F-82E4F8BD306B'
     CLIENT          = 'htmlshark'
-    CLIENT_REV      = '20110906'
-    COUNTRY         = {"CC2" => "0", "IPR" => "353", "CC4" => "1073741824", "CC3" => "0", "CC1" => "0", "ID" => "223"}
+    CLIENT_REV      = '20120312'
+    COUNTRY         = {"DMA"=>0,"CC1"=>0,"IPR"=>0,"CC2"=>0,"CC3"=>2305843009213694000,"ID"=>190,"CC4"=>0}
+    #{"CC2" => "0", "IPR" => "353", "CC4" => "1073741824", "CC3" => "0", "CC1" => "0", "ID" => "223"}
     TOKEN_TTL       = 120 # 2 minutes
     
     # Client overrides for different methods
@@ -32,12 +33,16 @@ module Grooveshark
       body['header']['token'] = create_token(method) if @comm_token
       
       begin
+        pp "BODY::: for URL: #{url}"
+        pp body
         data = RestClient.post(
           url, body.to_json,
           :content_type => :json,
           :accept => :json,
           :cookie => "PHPSESSID=#{@session}"
         )
+        pp "Response :::: "
+        pp data
       rescue Exception => ex
         raise GeneralError    # Need define error handling
       end

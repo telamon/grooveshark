@@ -12,7 +12,7 @@ describe 'Request' do
     @tokens = []
     
     3.times do |i|
-      @gs.search_songs('Muse')
+      @gs.search_songs('Gorrilaz')
       @tokens << @gs.comm_token
       sleep 3
     end
