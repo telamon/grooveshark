@@ -1,14 +1,22 @@
+require 'logger'
 require 'faraday_middleware'
 
 module Grooveshark
-  WEBSITE_URL     = 'http://grooveshark.com'
-  API_BASE        = 'cowbell.grooveshark.com'
-  ASSETS_BASE     = 'http://beta.grooveshark.com/static'
-  UUID            = 'A3B724BA-14F5-4932-98B8-8D375F85F266'
-  CLIENT          = 'htmlshark'
-  CLIENT_REV      = '20110606.04'
+  def self.gen_uuid
+    "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".gsub /[xy]/ do |a|
+            b = (rand * 16).to_i
+            c = a == "x" ? b : b & 3 | 8
+            c.to_s(16).upcase
+        end
+  end
+  WEBSITE_URL     = 'https://grooveshark.com'
+  API_BASE        = 'grooveshark.com'
+  ASSETS_BASE     = 'https://beta.grooveshark.com/static'
+  UUID            = self.gen_uuid
+  CLIENT          = 'mobileshark'
+  CLIENT_REV      = '20120227'
   COUNTRY         = {"CC2" => "0", "IPR" => "353", "CC4" => "1073741824", "CC3" => "0", "CC1" => "0", "ID" => "223"}
-  SALT            = 'backToTheScienceLab'
+  SALT            = 'someThumbsUp'
   TOKEN_TTL       = 120 # 2 minutes
   
   # User agent overrides for different methods
@@ -29,7 +37,7 @@ module Grooveshark
     :original => ''
   }
   
-  @@debug = false
+  @@debug = true
   
   # Returns true if request logger is enabled
   #
@@ -45,7 +53,7 @@ module Grooveshark
   
   module Connection
     protected
-    
+    require 'json'
     # Creates a new faraday connection
     #
     # https - Use secure connection (default: false)
@@ -53,7 +61,7 @@ module Grooveshark
     # @return [Faraday::Connection]
     #
     def connection(https=false)
-      base_url = https ? 'https://' : 'http://'
+      base_url = "https://" #https ? 'https://' : 'http://'
       base_url << API_BASE
       
       Faraday.new(base_url) do |c|
@@ -69,8 +77,9 @@ module Grooveshark
     # @return [String]
     #
     def request_session_token
-      resp = Faraday.get(WEBSITE_URL)
-      resp.headers[:set_cookie].to_s.scan(/PHPSESSID=([a-z\d]{32});/i).flatten.first 
+      Digest::SHA1.hexdigest(rand.to_s)[0..32] 
+      #resp = Faraday.get(WEBSITE_URL)
+      #resp.headers[:set_cookie].to_s.scan(/PHPSESSID=([a-z\d]{32});/i).flatten.first 
     end
   end
 end
