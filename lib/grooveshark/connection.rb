@@ -13,8 +13,8 @@ module Grooveshark
   API_BASE        = 'grooveshark.com'
   ASSETS_BASE     = 'https://beta.grooveshark.com/static'
   UUID            = self.gen_uuid
-  CLIENT          = 'mobileshark'
-  CLIENT_REV      = '20120227'
+  CLIENT          = 'htmlshark'
+  CLIENT_REV      = '20120312'
   COUNTRY         = {"CC2" => "0", "IPR" => "353", "CC4" => "1073741824", "CC3" => "0", "CC1" => "0", "ID" => "223"}
   SALT            = 'someThumbsUp'
   TOKEN_TTL       = 120 # 2 minutes
@@ -26,7 +26,7 @@ module Grooveshark
     
   # Salt overrides for different methods
   METHOD_SALTS = { 
-    'getStreamKeyFromSongIDEx' => 'bewareOfBearsharktopus'
+    'getStreamKeyFromSongIDEx' => 'someThumbsUp'
   }
   
   # Album covers and user pictures size prefixes

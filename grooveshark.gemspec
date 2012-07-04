@@ -17,7 +17,9 @@ Gem::Specification.new do |gem|
   
   gem.add_development_dependency 'rspec',              '~> 2.6'
   gem.add_development_dependency 'webmock',            '~> 1.6'
-  
+  gem.add_development_dependency 'rake',            '~>  0.9.2.2'
+  gem.add_development_dependency 'pry',            '~>  0.9.9.6'
+
   gem.add_runtime_dependency     'faraday',            '~> 0.7.4'
   gem.add_runtime_dependency     'faraday_middleware', '~> 0.7.0'
   gem.add_runtime_dependency     'json',               '~> 1.7.3'
